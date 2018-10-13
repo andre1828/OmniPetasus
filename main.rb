@@ -1,12 +1,13 @@
 require 'watir'
 require './utils.rb'
 
-username = 'UserNameHere'
-password = 'PasswordHere'
+username = 'YourUserNameHere'
+password = 'Passwordhere'
 duolingo_base_url = 'https://www.duolingo.com'
+Watir.default_timeout = 10
 Selenium::WebDriver::Firefox.driver_path = './geckodriver'
 browser = Watir::Browser.new :firefox, headless: false
-utils = Utils.new browser
+utils = Utils.new browser, :italian
 
 define_method(:select_image) do
 end
@@ -34,7 +35,7 @@ browser.button(id: 'login-button').click
 # wait for any skill to be present on the page before proceding
 browser.wait_until { browser.span(class: %w[_378Tf _3qO9M _33VdW]).present? }
 utils.create_language_db :italian unless utils.exists_language_db :italian
-utils.study_language :italian, (utils.load_language_db :italian)
+utils.study_language :italian
 
-browser.close
+# browser.close
 puts 'DONE'
